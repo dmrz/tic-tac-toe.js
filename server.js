@@ -21,14 +21,6 @@ const WINNING_COMBINATIONS = [
 const connections = {};
 const games = {};
 
-const gameInitialState = {
-  creator: null,
-  lastTurn: null,
-  winner: null,
-  players: [],
-  tiles: {},
-};
-
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
@@ -144,6 +136,14 @@ app.get('/new/', (req, res) => {
   let hash = crypto.createHash('sha1')
                    .update(Math.random().toString())
                    .digest('hex');
+  let gameInitialState = {
+    creator: null,
+    lastTurn: null,
+    winner: null,
+    players: [],
+    tiles: {},
+  };
+
   games[hash] = Object.assign({}, gameInitialState, { creator: getUserHash(req) });
   res.json({ hash: hash });
 });
